@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://saasinsiderlab.netlify.app/sitemap.xml
