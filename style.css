@@ -49,10 +49,19 @@ a {
     padding: 18px 0;
 }
 
+/* Updated logo setup for SaasInsider Lab combination */
 .logo {
     font-size: 24px;
     font-weight: 800;
     letter-spacing: -0.5px;
+    color: #fff; /* "Lab" text will be white */
+}
+
+.logo .gradient-text {
+    background: linear-gradient(135deg, #a78bfa 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-right: 2px; /* Perfect space adjustment between SaasInsider and Lab */
 }
 
 .nav-links {
@@ -456,10 +465,16 @@ footer {
     margin-bottom: 50px;
 }
 
+/* Footer logo sync */
 .footer-logo {
     font-size: 24px;
     font-weight: 800;
     margin-bottom: 20px;
+    color: #fff;
+}
+
+.footer-logo .gradient-text {
+    margin-right: 2px;
 }
 
 .footer-text {
