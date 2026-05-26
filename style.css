@@ -145,6 +145,8 @@ img {
     font-size: 28px;
     color: #fff;
     cursor: pointer;
+    background: transparent;
+    border: none;
 }
 
 /* =========================
@@ -206,17 +208,26 @@ img {
     flex-wrap: wrap;
 }
 
+/* =========================
+   BUTTONS
+========================= */
+
 .primary-btn,
 .secondary-btn {
     padding: 14px 32px;
     border-radius: 14px;
     font-size: 15px;
     font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
 }
 
 .primary-btn {
     background: var(--primary-gradient);
     color: #fff;
+    border: none;
     box-shadow: 0 6px 24px rgba(139, 92, 246, 0.25);
 }
 
@@ -345,9 +356,6 @@ section {
     border: 1px solid rgba(255, 255, 255, 0.04);
     border-radius: 22px;
     padding: 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     transition: var(--transition);
 }
 
@@ -355,41 +363,6 @@ section {
     transform: translateY(-6px);
     border-color: rgba(139, 92, 246, 0.25);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
-}
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 22px;
-}
-
-.tool-tag {
-    padding: 5px 12px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.tool-tag.ai {
-    background: rgba(167, 139, 250, 0.1);
-    color: #a78bfa;
-}
-
-.tool-tag.prod {
-    background: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
-}
-
-.tool-tag.host {
-    background: rgba(16, 185, 129, 0.1);
-    color: #10b981;
-}
-
-.rating {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--yellow);
 }
 
 .tool-card h3 {
@@ -402,32 +375,6 @@ section {
 .tool-card p {
     color: var(--text-secondary);
     font-size: 15px;
-    margin-bottom: 26px;
-    flex-grow: 1;
-}
-
-.card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.price-tag {
-    font-size: 13px;
-    color: var(--text-muted);
-    font-weight: 500;
-}
-
-.arrow-btn {
-    color: #a78bfa;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.arrow-btn:hover {
-    color: #fff;
 }
 
 /* =========================
@@ -583,51 +530,19 @@ section {
    CONTACT PAGE
 ========================= */
 
-.contact-wrapper {
-    max-width: 700px;
-    margin: auto;
-}
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.form-group label {
-    color: #c4b5fd;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.contact-form button {
-    margin-top: 10px;
-    background: var(--primary-gradient);
-    color: #fff;
-}
-
-/* =========================
-   ADVANCED CONTACT PAGE
-========================= */
-
 .contact-hero {
-    padding-bottom: 70px;
+    padding-bottom: 60px;
 }
 
 .contact-section {
+    position: relative;
     padding-top: 20px;
 }
 
 .contact-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    gap: 35px;
     align-items: stretch;
 }
 
@@ -765,69 +680,66 @@ section {
 }
 
 /* =========================
-   CONTACT MOBILE
+   PRIVACY POLICY PAGE
 ========================= */
 
-@media (max-width: 900px) {
-
-    .contact-wrapper {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-info h2 {
-        font-size: 32px;
-    }
-
+.privacy-section {
+    position: relative;
+    overflow: hidden;
 }
 
-@media (max-width: 768px) {
-
-    .contact-info,
-    .contact-form-box {
-        padding: 30px 24px;
-    }
-
-    .contact-info h2 {
-        font-size: 28px;
-    }
-
+.privacy-container {
+    max-width: 900px;
+    position: relative;
+    z-index: 2;
 }
 
-@media (max-width: 480px) {
-
-    .contact-icon {
-        min-width: 48px;
-        height: 48px;
-        font-size: 20px;
-    }
-
-    .contact-point {
-        gap: 14px;
-    }
-
+.privacy-title {
+    margin-bottom: 40px;
 }
 
-/* =========================
-   POLICY PAGE
-========================= */
-
-.policy-container {
-    max-width: 850px;
-    margin: auto;
+.privacy-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 30px;
+    padding: 50px;
+    position: relative;
+    overflow: hidden;
 }
 
-.policy-content {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+.privacy-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at top left,
+            rgba(139, 92, 246, 0.06),
+            transparent 45%);
+    pointer-events: none;
+}
+
+.privacy-card p {
     color: var(--text-secondary);
     font-size: 16px;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 2;
 }
 
-.policy-content h2 {
+.policy-block {
+    margin-top: 35px;
+    position: relative;
+    z-index: 2;
+}
+
+.policy-block h2 {
+    font-size: 28px;
     color: #fff;
-    font-size: 24px;
-    margin-top: 10px;
+    margin-bottom: 14px;
+}
+
+.privacy-btn {
+    margin-top: 12px;
 }
 
 /* =========================
@@ -915,6 +827,21 @@ footer h3 {
    MOBILE RESPONSIVE
 ========================= */
 
+@media (max-width: 900px) {
+
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-info h2 {
+        font-size: 32px;
+    }
+
+    .privacy-card {
+        padding: 40px 30px;
+    }
+}
+
 @media (max-width: 768px) {
 
     section {
@@ -984,6 +911,23 @@ footer h3 {
     .blog-grid {
         grid-template-columns: 1fr;
     }
+
+    .contact-info,
+    .contact-form-box {
+        padding: 30px 24px;
+    }
+
+    .contact-info h2 {
+        font-size: 28px;
+    }
+
+    .privacy-card {
+        padding: 32px 24px;
+    }
+
+    .policy-block h2 {
+        font-size: 24px;
+    }
 }
 
 /* =========================
@@ -1008,5 +952,19 @@ footer h3 {
     .tool-card,
     .blog-content {
         padding: 24px;
+    }
+
+    .contact-icon {
+        min-width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+
+    .contact-point {
+        gap: 14px;
+    }
+
+    .privacy-card {
+        border-radius: 24px;
     }
 }
