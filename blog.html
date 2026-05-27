@@ -342,11 +342,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     latest AI tools, software reviews, and SaaS growth strategies.
                 </p>
 
-                <form class="newsletter-form">
+                <form
+    class="newsletter-form"
+    action="https://api.web3forms.com/submit"
+    method="POST">
 
-                    <input type="email"
-                        placeholder="Enter your email address"
-                        required>
+    <input type="hidden"
+        name="News Letter Form"
+        value="4cc93815-8533-4412-b368-d93fb3734df2">
+
+    <input type="hidden"
+        name="subject"
+        value="New Newsletter Subscriber">
+
+    <input type="hidden"
+        name="from_name"
+        value="SaaS Insider Lab Newsletter">
+
+                    <input
+    type="email"
+    name="email"
+    placeholder="hiteshrathodseo@gmail.com"
+    required>
 
                     <button type="submit">
                         Subscribe Now
