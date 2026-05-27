@@ -218,7 +218,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <!-- CONTACT FORM -->
                 <div class="contact-form-box">
 
-                    <form class="contact-form">
+                    <form 
+    class="contact-form"
+    action="https://api.web3forms.com/submit"
+    method="POST">
+
+    <!-- Web3Forms Access Key -->
+    <input type="hidden"
+        name="access_key"
+        value="YOUR_ACCESS_KEY">
+
+    <!-- Optional -->
+    <input type="hidden"
+        name="subject"
+        value="New Contact Form Submission">
+
+    <input type="hidden"
+        name="from_name"
+        value="SaaS Insider Lab">
 
                         <div class="form-group">
 
@@ -281,7 +298,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <button type="submit" class="primary-btn contact-btn">
                             Send Message
                         </button>
-
+<p class="form-status"></p>
                     </form>
 
                 </div>
