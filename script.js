@@ -134,3 +134,39 @@ window.addEventListener("load", revealOnScroll);
 /* RUN ON SCROLL */
 
 window.addEventListener("scroll", revealOnScroll);
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const forms = document.querySelectorAll("form");
+
+    forms.forEach(form => {
+
+        form.addEventListener("submit", async function (e) {
+
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: formData
+            });
+
+            if (response.ok) {
+
+                alert("Form submitted successfully!");
+
+                form.reset();
+
+            } else {
+
+                alert("Something went wrong!");
+
+            }
+
+        });
+
+    });
+
+});
