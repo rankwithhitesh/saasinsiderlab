@@ -982,3 +982,18 @@ footer h3 {
 .faq-answer.active {
     display: block;
 }
+
+
+.faq-item:first-child .faq-answer {
+    display: block !important;
+}
+
+/* FAQ OPEN FIX */
+
+.faq-answer {
+    display: none;
+}
+
+.faq-item:first-child .faq-answer {
+    display: block !important;
+}
