@@ -170,3 +170,45 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const faqQuestions = document.querySelectorAll(".faq-question");
+
+    faqQuestions.forEach(question => {
+
+        question.addEventListener("click", function () {
+
+            const currentAnswer = this.nextElementSibling;
+            const isOpen = this.classList.contains("active");
+
+            // Sab FAQs close karo
+            faqQuestions.forEach(q => {
+
+                q.classList.remove("active");
+                q.setAttribute("aria-expanded", "false");
+
+                const answer = q.nextElementSibling;
+
+                answer.classList.remove("active");
+                answer.style.display = "none";
+
+            });
+
+            // Current FAQ open karo
+            if (!isOpen) {
+
+                this.classList.add("active");
+                this.setAttribute("aria-expanded", "true");
+
+                currentAnswer.classList.add("active");
+                currentAnswer.style.display = "block";
+
+            }
+
+        });
+
+    });
+
+});
