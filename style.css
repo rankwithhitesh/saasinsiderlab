@@ -147,6 +147,11 @@ img {
     cursor: pointer;
     background: transparent;
     border: none;
+    /* FIX: ensure tap target is large enough on mobile */
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
 }
 
 /* =========================
@@ -222,6 +227,8 @@ img {
     align-items: center;
     justify-content: center;
     transition: var(--transition);
+    /* FIX: minimum tap target for touch devices */
+    min-height: 44px;
 }
 
 .primary-btn {
@@ -257,6 +264,8 @@ img {
     filter: blur(140px);
     opacity: 0.4;
     z-index: 1;
+    /* FIX: prevent blur orbs from creating horizontal scroll */
+    pointer-events: none;
 }
 
 .blur.one {
@@ -343,7 +352,8 @@ section {
 .card-grid,
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    /* FIX: changed minmax from 320px to 280px to prevent overflow on narrow screens */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
 }
 
@@ -439,6 +449,10 @@ section {
     color: var(--blue);
     font-size: 14px;
     font-weight: 600;
+    /* FIX: minimum tap target */
+    display: inline-block;
+    min-height: 44px;
+    line-height: 44px;
 }
 
 .read-more:hover {
@@ -520,6 +534,8 @@ section {
     font-weight: 700;
     cursor: pointer;
     transition: var(--transition);
+    /* FIX: minimum tap target */
+    min-height: 44px;
 }
 
 .newsletter-form button:hover {
@@ -658,11 +674,14 @@ section {
     font-size: 15px;
     font-family: inherit;
     transition: var(--transition);
+    /* FIX: prevent iOS zoom on input focus (font-size must be >= 16px) */
+    font-size: 16px;
 }
 
 .form-group textarea {
     min-height: 160px;
     resize: vertical;
+    font-size: 16px;
 }
 
 .form-group input:focus,
@@ -788,6 +807,10 @@ footer h3 {
 .footer-links a {
     color: var(--text-secondary);
     font-size: 14px;
+    /* FIX: minimum tap target for footer links */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
 }
 
 .footer-links a:hover {
@@ -824,7 +847,55 @@ footer h3 {
 }
 
 /* =========================
-   MOBILE RESPONSIVE
+   FEATURED IMAGE + ARTICLE IMAGE
+========================= */
+
+.featured-image-block {
+    margin: 30px 0;
+    /* FIX: ensure block doesn't overflow container */
+    width: 100%;
+    max-width: 100%;
+}
+
+/* FIX: .article-image was used in HTML but had no CSS definition — added here */
+.article-image {
+    margin: 24px 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+.article-image img,
+.featured-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    /* FIX: prevent images from overflowing their containers */
+    max-width: 100%;
+}
+
+/* =========================
+   FAQ — UNIFIED SYSTEM
+   FIX: style.css had display:none/display:block which conflicts
+   with the blog page's max-height transition system.
+   Removed old .faq-answer / .faq-answer.active display rules.
+   The blog page uses .faq-item.open via its own <style> block.
+   script.js FAQ handler is superseded by the inline script on
+   the blog page; keeping only the display fallback for other
+   pages that may use the old .active class system.
+========================= */
+
+/* For pages NOT using the blog's max-height system */
+.faq-answer:not([style]) {
+    display: none;
+}
+
+.faq-answer.active:not([style]) {
+    display: block;
+}
+
+/* =========================
+   MOBILE RESPONSIVE — 900px
 ========================= */
 
 @media (max-width: 900px) {
@@ -842,14 +913,19 @@ footer h3 {
     }
 }
 
+/* =========================
+   MOBILE RESPONSIVE — 768px
+========================= */
+
 @media (max-width: 768px) {
 
     section {
-        padding: 80px 0;
+        padding: 60px 0;
     }
 
     .hero {
-        padding: 120px 0 70px;
+        /* FIX: reduced from 120px to 90px top padding on mobile */
+        padding: 90px 0 50px;
     }
 
     .hero h1 {
@@ -869,6 +945,11 @@ footer h3 {
 
     .newsletter-box h2 {
         font-size: 34px;
+    }
+
+    /* FIX: reduce newsletter box side padding so content isn't cramped */
+    .newsletter-box {
+        padding: 44px 24px;
     }
 
     .stats-grid {
@@ -897,6 +978,8 @@ footer h3 {
         flex-direction: column;
         display: none;
         text-align: center;
+        /* FIX: ensure mobile menu appears above page content */
+        z-index: 998;
     }
 
     .nav-links.active {
@@ -904,7 +987,7 @@ footer h3 {
     }
 
     .menu-toggle {
-        display: block;
+        display: flex;
     }
 
     .card-grid,
@@ -928,16 +1011,32 @@ footer h3 {
     .policy-block h2 {
         font-size: 24px;
     }
+
+    /* FIX: tool-info-table first column was white-space:nowrap + 180px
+       forcing horizontal scroll on mobile. Override to wrap and auto width. */
+    .tool-info-table td:first-child {
+        white-space: normal;
+        width: auto;
+        min-width: 100px;
+    }
+
+    /* FIX: reduce blog-hero blur orb sizes so they don't overflow on mobile */
+    .blog-hero .blur.one,
+    .blog-hero .blur.two {
+        width: 260px;
+        height: 260px;
+    }
 }
 
 /* =========================
-   SMALL MOBILE
+   SMALL MOBILE — 480px
 ========================= */
 
 @media (max-width: 480px) {
 
     .hero h1 {
-        font-size: 38px;
+        font-size: 32px;
+        letter-spacing: -0.5px;
     }
 
     .primary-btn,
@@ -946,12 +1045,12 @@ footer h3 {
     }
 
     .newsletter-box {
-        padding: 45px 24px;
+        padding: 36px 18px;
     }
 
     .tool-card,
     .blog-content {
-        padding: 24px;
+        padding: 20px 18px;
     }
 
     .contact-icon {
@@ -967,24 +1066,35 @@ footer h3 {
     .privacy-card {
         border-radius: 24px;
     }
-}
 
-.featured-image-block {
-    margin: 30px 0;
-}
+    /* FIX: section-title headings still too large on very small screens */
+    .section-title h1,
+    .section-title h2 {
+        font-size: 28px;
+        letter-spacing: -0.5px;
+    }
 
-.featured-image {
-    width: 100%;
-    border-radius: 20px;
-    display: block;
-}
+    /* FIX: stat numbers too large on very small screens */
+    .stat-item h3 {
+        font-size: 30px;
+    }
 
-/* FAQ */
+    /* FIX: blog-img-placeholder padding too tall on small screens */
+    .blog-img-placeholder {
+        padding: 28px;
+    }
 
-.faq-answer {
-    display: none;
-}
+    /* FIX: footer padding reduction */
+    footer {
+        padding: 60px 0 30px;
+    }
 
-.faq-answer.active {
-    display: block;
+    /* FIX: tool info table — stack label and value on very small screens */
+    .tool-info-table {
+        font-size: 0.82rem;
+    }
+
+    .tool-info-table td {
+        padding: 10px 12px;
+    }
 }
