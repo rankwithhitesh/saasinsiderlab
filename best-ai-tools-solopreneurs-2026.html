@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -191,6 +192,10 @@
             color: #9ca3af;
             text-decoration: none;
             transition: color 0.2s;
+            /* FIX: touch tap target */
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
         }
         .breadcrumb a:hover { color: #a78bfa; }
         .breadcrumb span { color: #4b5563; }
@@ -211,11 +216,14 @@
             margin-bottom: 20px;
         }
         .article-title {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-size: clamp(1.6rem, 5vw, 2.8rem);
             font-weight: 800;
             line-height: 1.2;
             color: #f9fafb;
             margin-bottom: 20px;
+            /* FIX: prevent long words from overflowing narrow screens */
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
         .article-title .gradient-text {
             background: linear-gradient(135deg, #7c3aed, #2563eb);
@@ -242,6 +250,8 @@
         .article-meta-row .meta-item svg {
             width: 15px; height: 15px;
             opacity: 0.5;
+            /* FIX: prevent SVG from shrinking/stretching */
+            flex-shrink: 0;
         }
 
         /* ── LAYOUT ────────────────────────────────────────── */
@@ -253,30 +263,56 @@
             padding-bottom: 80px;
         }
         @media (max-width: 900px) {
-            .article-layout { grid-template-columns: 1fr; }
+            .article-layout {
+                grid-template-columns: 1fr;
+                /* FIX: reduce bottom padding on tablet */
+                padding-bottom: 40px;
+            }
             .article-sidebar { display: none; }
         }
 
-/* ── FEATURED IMAGE ────────────────────────────────── */
-.featured-image-block {
-    width: 100%;
-    margin-bottom: 40px;
-    border-radius: 16px;
-    overflow: visible;
-}
+        /* ── FEATURED IMAGE ────────────────────────────────── */
+        .featured-image-block {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 40px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .featured-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+            /* FIX: prevent image from overflowing on small screens */
+            max-width: 100%;
+        }
 
-.featured-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 16px;
-}
-        
+        /* FIX: .article-image had no CSS definition in original — added now */
+        .article-image {
+            margin: 24px 0;
+            width: 100%;
+            max-width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .article-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+            max-width: 100%;
+        }
+
         /* ── ARTICLE BODY ──────────────────────────────────── */
         .article-body {
             color: #d1d5db;
             font-size: 1.02rem;
             line-height: 1.85;
+            /* FIX: prevent any child content from overflowing article width */
+            min-width: 0;
+            overflow-wrap: break-word;
+            word-break: break-word;
         }
         .article-body p {
             margin-bottom: 1.4rem;
@@ -289,12 +325,15 @@
             margin: 2.6rem 0 1rem;
             padding-bottom: 10px;
             border-bottom: 1px solid rgba(255,255,255,0.07);
+            /* FIX: allow heading to wrap on narrow screens */
+            word-break: break-word;
         }
         .article-body h3 {
             font-size: 1.2rem;
             font-weight: 700;
             color: #e5e7eb;
             margin: 2rem 0 0.8rem;
+            word-break: break-word;
         }
         .article-body strong { color: #f3f4f6; }
         .article-body a {
@@ -343,6 +382,9 @@
             align-items: baseline;
             gap: 10px;
             transition: color 0.2s;
+            /* FIX: ensure tap target is tall enough */
+            min-height: 36px;
+            align-items: center;
         }
         .toc-list li a:hover { color: #c4b5fd !important; }
         .toc-list li a::before {
@@ -351,6 +393,7 @@
             font-weight: 700;
             color: #4b5563;
             min-width: 22px;
+            flex-shrink: 0;
         }
 
         /* ── TOOL INFO TABLE ───────────────────────────────── */
@@ -362,9 +405,11 @@
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.07);
+            /* FIX: table must not exceed article width */
+            max-width: 100%;
+            table-layout: auto;
         }
-        .tool-info-table tr:nth-child(odd) td:first-child,
-        .tool-info-table tr:nth-child(odd) th:first-child {
+        .tool-info-table tr:nth-child(odd) td:first-child {
             background: rgba(124,58,237,0.08);
         }
         .tool-info-table td {
@@ -376,8 +421,10 @@
         .tool-info-table td:first-child {
             font-weight: 600;
             color: #e5e7eb;
-            white-space: nowrap;
-            width: 180px;
+            /* FIX: removed white-space:nowrap and fixed width — these were
+               forcing horizontal scroll on mobile. Now wraps naturally. */
+            white-space: normal;
+            width: 140px;
             background: rgba(255,255,255,0.02);
         }
         .tool-info-table tr:last-child td {
@@ -390,12 +437,14 @@
             margin: 24px 0 32px;
             border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.07);
+            /* FIX: smooth momentum scrolling on iOS */
+            -webkit-overflow-scrolling: touch;
         }
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.88rem;
-            min-width: 520px;
+            min-width: 480px;
         }
         .comparison-table thead tr {
             background: rgba(124,58,237,0.2);
@@ -408,6 +457,8 @@
             font-size: 0.82rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            /* FIX: prevent header text from overflowing */
+            white-space: nowrap;
         }
         .comparison-table tbody tr {
             border-top: 1px solid rgba(255,255,255,0.05);
@@ -439,6 +490,8 @@
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
+            /* FIX: prevent badge text from wrapping */
+            white-space: nowrap;
         }
 
         /* ── HIGHLIGHT QUOTE ───────────────────────────────── */
@@ -535,10 +588,12 @@
             align-items: center;
             gap: 16px;
             color: #e5e7eb;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             font-family: 'Plus Jakarta Sans', sans-serif;
             transition: background 0.2s;
+            /* FIX: minimum tap target */
+            min-height: 44px;
         }
         .faq-question:hover { background: rgba(255,255,255,0.03); }
         .faq-question .faq-icon {
@@ -553,6 +608,7 @@
             color: #a78bfa;
             transition: transform 0.3s;
         }
+        /* FIX: unified open state — only .faq-item.open is used by the inline script */
         .faq-item.open .faq-icon { transform: rotate(45deg); }
         .faq-answer {
             padding: 0 24px;
@@ -561,7 +617,7 @@
             transition: max-height 0.35s ease, padding 0.3s ease;
         }
         .faq-item.open .faq-answer {
-            max-height: 400px;
+            max-height: 500px;
             padding: 0 24px 20px;
         }
         .faq-answer p {
@@ -648,6 +704,105 @@
             font-weight: 700;
             color: #e5e7eb;
         }
+
+        /* ── BLOG HERO MOBILE ──────────────────────────────── */
+        @media (max-width: 768px) {
+            .blog-hero {
+                padding: 90px 0 40px;
+            }
+            /* FIX: shrink blur orbs on mobile so they don't cause horizontal overflow */
+            .blog-hero .blur.one {
+                width: 260px; height: 260px;
+                left: -80px;
+            }
+            .blog-hero .blur.two {
+                width: 220px; height: 220px;
+                right: -60px;
+            }
+            /* FIX: reduce toc padding on mobile */
+            .toc-box {
+                padding: 18px 16px;
+            }
+            /* FIX: highlight-quote smaller padding on mobile */
+            .highlight-quote {
+                padding: 14px 16px;
+                font-size: 0.97rem;
+            }
+            .section-callout {
+                padding: 16px 18px;
+                font-size: 0.9rem;
+            }
+            /* FIX: author box stacks on very narrow screens */
+            .author-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            /* FIX: faq question wraps text properly */
+            .faq-question {
+                font-size: 0.88rem;
+                padding: 16px 18px;
+            }
+            .faq-answer {
+                padding: 0 18px;
+            }
+            .faq-item.open .faq-answer {
+                padding: 0 18px 18px;
+            }
+            .article-body h2 {
+                font-size: 1.3rem;
+            }
+            .article-body h3 {
+                font-size: 1.08rem;
+            }
+            .related-section .section-title h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-hero {
+                padding: 80px 0 32px;
+            }
+            .toc-box {
+                padding: 14px 14px;
+            }
+            .toc-list li a {
+                font-size: 0.82rem;
+            }
+            .tool-info-table {
+                font-size: 0.82rem;
+            }
+            .tool-info-table td {
+                padding: 10px 10px;
+            }
+            .tool-info-table td:first-child {
+                width: 110px;
+            }
+            .faq-question {
+                font-size: 0.84rem;
+                padding: 14px 14px;
+            }
+            .faq-answer {
+                padding: 0 14px;
+            }
+            .faq-item.open .faq-answer {
+                padding: 0 14px 14px;
+            }
+            .sidebar-widget {
+                padding: 16px;
+            }
+            .author-box {
+                padding: 18px;
+            }
+            .article-layout {
+                padding-bottom: 24px;
+            }
+            /* FIX: prevent meta row items from becoming too cramped */
+            .article-meta-row {
+                gap: 12px;
+                font-size: 0.78rem;
+            }
+        }
     </style>
 
 </head>
@@ -723,19 +878,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- ── MAIN CONTENT ── -->
             <article class="article-body">
 
-<!-- Featured Image -->
-<div class="featured-image-block">
-
-    <img 
-        src="best-ai-tools-solopreneurs.webp"
-        alt="Best AI Tools for Solopreneurs in 2026"
-        class="featured-image"
-        loading="lazy"
-        width="1200"
-        height="630"
-    >
-
-</div>
+                <!-- Featured Image -->
+                <div class="featured-image-block">
+                    <img
+                        src="best-ai-tools-solopreneurs.webp"
+                        alt="Best AI Tools for Solopreneurs in 2026"
+                        class="featured-image"
+                        loading="lazy"
+                        width="1200"
+                        height="630"
+                    >
+                </div>
 
                 <!-- Intro -->
                 <p>Running a business solo in 2026 looks very different from what it did just three years ago. The biggest shift? AI tools have moved from a nice-to-have novelty into genuine daily workhorses for writers, consultants, designers, coaches, and every other kind of solopreneur you can think of.</p>
@@ -785,17 +938,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <p>ChatGPT is still the name most people know first, and for good reason. The GPT-4o model handles long-form content, emails, social posts, sales copy, and brainstorming with impressive fluency. It's also gotten significantly better at following specific formatting instructions.</p>
 
+                <!-- FIX: added width and height attributes to prevent CLS -->
                 <div class="article-image">
+                    <img
+                        src="chatgpt-interface-dashboard.webp"
+                        alt="ChatGPT interface dashboard for solopreneurs"
+                        loading="lazy"
+                        width="800"
+                        height="450"
+                    >
+                </div>
 
-    <img 
-        src="chatgpt-interface-dashboard.webp"
-        alt="ChatGPT interface dashboard for solopreneurs"
-        class="featured-image"
-        loading="lazy"
-    >
-
-</div>
-                
                 <table class="tool-info-table" aria-label="ChatGPT tool details">
                     <tbody>
                         <tr><td>Best for</td><td>Drafting content, brainstorming ideas, writing email sequences, rewriting existing copy</td></tr>
@@ -818,17 +971,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <p>Claude has become a serious contender for content creators and consultants who need longer, more nuanced output. It handles complex reasoning tasks well and tends to produce prose that feels less robotic than other models. For things like long reports, thoughtful emails, or in-depth analysis, many solopreneurs prefer it.</p>
 
-<div class="article-image">
+                <!-- FIX: added width and height attributes to prevent CLS -->
+                <div class="article-image">
+                    <img
+                        src="claude-pricing-plans.webp"
+                        alt="Claude AI pricing plans and features"
+                        loading="lazy"
+                        width="800"
+                        height="450"
+                    >
+                </div>
 
-    <img 
-        src="claude-pricing-plans.webp"
-        alt="Claude AI pricing plans and features"
-        class="featured-image"
-        loading="lazy"
-    >
-
-</div>
-                
                 <table class="tool-info-table" aria-label="Claude tool details">
                     <tbody>
                         <tr><td>Best for</td><td>Long-form writing, nuanced analysis, drafting reports, summarizing complex documents</td></tr>
@@ -870,17 +1023,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <p>Perplexity is one of the most underrated tools in the solopreneur AI stack. Think of it as a search engine that actually synthesizes answers instead of giving you ten blue links to wade through. It cites its sources in real time, which makes it far more trustworthy than asking a standard AI chatbot to recall facts.</p>
 
-<div class="article-image">
+                <!-- FIX: added width and height attributes to prevent CLS -->
+                <div class="article-image">
+                    <img
+                        src="perplexity-ai-research-tool.webp"
+                        alt="Perplexity AI Research Tool"
+                        loading="lazy"
+                        width="800"
+                        height="450"
+                    >
+                </div>
 
-    <img 
-        src="perplexity-ai-research-tool.webp"
-        alt="Perplexity AI Research Tool"
-        class="featured-image"
-        loading="lazy"
-    >
-
-</div>
-                
                 <table class="tool-info-table" aria-label="Perplexity AI tool details">
                     <tbody>
                         <tr><td>Best for</td><td>Market research, competitor analysis, fact-checking, staying on top of industry news</td></tr>
@@ -1084,18 +1237,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <section class="faq-section" aria-label="Frequently Asked Questions">
 
+                    <!-- FIX: removed "active" class and inline style="display:block" from first FAQ item.
+                         The old HTML had the first FAQ pre-opened using both the .active system (script.js)
+                         and inline style, while the accordion JS used the .open class system. This caused
+                         a conflict where the first FAQ could not be closed and others behaved unpredictably.
+                         All FAQs now start closed consistently; the inline script below handles all toggling. -->
+
                     <div class="faq-item">
-
-    <button class="faq-question active" aria-expanded="true">
-        What is the best AI tool for solopreneurs just starting out?
-        <span class="faq-icon" aria-hidden="true">+</span>
-    </button>
-
-    <div class="faq-answer active" style="display:block;">
-        <p>If you're completely new to AI tools, start with ChatGPT or Claude. Both have solid free tiers, are intuitive to use, and cover the widest range of tasks from writing to brainstorming to research. Once you've built a habit around one of those, add Canva AI for design and Grammarly for writing polish. That three-tool stack alone will make a visible difference in your productivity.</p>
-    </div>
-
-</div>
+                        <button class="faq-question" aria-expanded="false">
+                            What is the best AI tool for solopreneurs just starting out?
+                            <span class="faq-icon" aria-hidden="true">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>If you're completely new to AI tools, start with ChatGPT or Claude. Both have solid free tiers, are intuitive to use, and cover the widest range of tasks from writing to brainstorming to research. Once you've built a habit around one of those, add Canva AI for design and Grammarly for writing polish. That three-tool stack alone will make a visible difference in your productivity.</p>
+                        </div>
+                    </div>
 
                     <div class="faq-item">
                         <button class="faq-question" aria-expanded="false">
@@ -1303,22 +1459,56 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- JS -->
 <script src="script.js"></script>
 
+<!--
+    FIX: The original page had two conflicting FAQ systems:
+    1. script.js runs a DOMContentLoaded handler that toggles .active on
+       .faq-question and uses style.display="none/block" on .faq-answer.
+    2. This inline script toggled .open on .faq-item and relied on max-height
+       CSS transitions in the <style> block above.
+    
+    Both ran simultaneously. The result: clicking a FAQ first fired script.js
+    (toggling display:block), then immediately this script (toggling .open),
+    leaving answers in an inconsistent state — visible but with no transition,
+    or hidden despite being .open.
+
+    FIX: The inline script below now neutralises script.js's FAQ handler by
+    removing all .active classes it adds, and remains the single source of
+    truth for FAQ toggle behaviour on this page. The max-height transition
+    approach is preserved as it gives a smoother experience.
+-->
 <script>
-    // FAQ accordion
-    document.querySelectorAll('.faq-question').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            var item = this.closest('.faq-item');
-            var isOpen = item.classList.contains('open');
-            document.querySelectorAll('.faq-item').forEach(function(el) {
-                el.classList.remove('open');
-                el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-            });
-            if (!isOpen) {
-                item.classList.add('open');
-                this.setAttribute('aria-expanded', 'true');
-            }
+    (function () {
+        // Remove any .active state that script.js may have applied on DOMContentLoaded
+        // (script.js runs before this inline script due to DOM order)
+        document.querySelectorAll('.faq-question').forEach(function (btn) {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-expanded', 'false');
         });
-    });
+        document.querySelectorAll('.faq-answer').forEach(function (ans) {
+            ans.classList.remove('active');
+            ans.style.display = '';
+        });
+
+        // Single, clean FAQ accordion using .faq-item.open + max-height transition
+        document.querySelectorAll('.faq-question').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var item = this.closest('.faq-item');
+                var isOpen = item.classList.contains('open');
+
+                // Close all
+                document.querySelectorAll('.faq-item').forEach(function (el) {
+                    el.classList.remove('open');
+                    el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                });
+
+                // Open clicked if it was closed
+                if (!isOpen) {
+                    item.classList.add('open');
+                    this.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+    })();
 </script>
 
 </body>
