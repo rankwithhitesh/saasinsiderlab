@@ -61,18 +61,51 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- STRUCTURED DATA -->
     <script type="application/ld+json">
 {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "SaasInsiderLab",
-    "url": "https://saasinsiderlab.vercel.app/",
-    "description": "AI tools, SaaS software reviews, tutorials, and productivity guides.",
-    "publisher": {
-        "@type": "Organization",
-        "name": "SaasInsiderLab"
-    }
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "@id":"https://saasinsiderlab.vercel.app/#organization",
+  "name":"SaasInsiderLab",
+  "url":"https://saasinsiderlab.vercel.app/",
+  "logo":"https://saasinsiderlab.vercel.app/preview.jpg",
+  "description":"AI tools, SaaS software reviews, tutorials, comparisons, and productivity guides."
+}
+</script>
+
+    <script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "@id":"https://saasinsiderlab.vercel.app/#website",
+  "name":"SaasInsiderLab",
+  "url":"https://saasinsiderlab.vercel.app/",
+  "description":"AI tools, SaaS software reviews, tutorials, and productivity guides.",
+  "publisher":{
+    "@id":"https://saasinsiderlab.vercel.app/#organization"
+  },
+  "inLanguage":"en"
+}
+</script>
+
+    <script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "@id":"https://saasinsiderlab.vercel.app/#webpage",
+  "url":"https://saasinsiderlab.vercel.app/",
+  "name":"SaasInsiderLab | Best AI Tools & SaaS Software Reviews",
+  "description":"Discover the best AI tools, SaaS software, productivity apps, and digital platforms with honest reviews, tutorials, comparisons, and practical guides.",
+  "isPartOf":{
+    "@id":"https://saasinsiderlab.vercel.app/#website"
+  },
+  "about":{
+    "@id":"https://saasinsiderlab.vercel.app/#organization"
+  },
+  "primaryImageOfPage":{
+    "@type":"ImageObject",
+    "url":"https://saasinsiderlab.vercel.app/preview.jpg"
+  }
 }
 </script>
 
