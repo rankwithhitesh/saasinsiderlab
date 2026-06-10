@@ -42,6 +42,14 @@
     <priority>0.8</priority>
   </url>
 
+                  <!-- BLOG POST -->
+  <url>
+    <loc>https://saasinsiderlab.vercel.app/chatgpt-for-freelance-writing.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
     <!-- CONTACT PAGE -->
     <url>
         <loc>https://saasinsiderlab.vercel.app/contact.html</loc>
