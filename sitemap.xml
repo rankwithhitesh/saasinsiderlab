@@ -58,6 +58,14 @@
     <priority>0.8</priority>
   </url>
 
+                          <!-- BLOG POST -->
+  <url>
+    <loc>https://saasinsiderlab.vercel.app/ai-image-generators-for-non-designers.html</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
     <!-- CONTACT PAGE -->
     <url>
         <loc>https://saasinsiderlab.vercel.app/contact.html</loc>
